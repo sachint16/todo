@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "733834629495",
+    "project_id": "todo-eea81",
+    "storage_bucket": "todo-eea81.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:733834629495:android:606753d2d5d14100431172",
+        "android_client_info": {
+          "package_name": "com.pectolabs.todo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "733834629495-oed3ks7urfjvi7uus3ir3ck1fo7cc713.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pectolabs.todo",
+            "certificate_hash": "9ce411bff44a2cd9275f277a6c88960c085c7ff0"
+          }
+        },
+        {
+          "client_id": "733834629495-p4f9vldrukaafjup6nabkrft9v0nhk7t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhbLd9RVMN4fWhm7knwTUee91g9wtgZFY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "733834629495-p4f9vldrukaafjup6nabkrft9v0nhk7t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

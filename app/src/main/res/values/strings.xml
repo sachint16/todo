@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">ToDo App</string>
+    <string name="welcome_msg">Hello there, Welcome Onboard!</string>
+    <string name="sign_in_with_google">Sign In With Google</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_task">Add Task</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="when">When</string>
+    <string name="today">Today</string>
+    <string name="tomorrow">Tomorrow</string>
+    <string name="select_date">Select Date</string>
+    <string name="tasks">Tasks</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="pending">Pending</string>
+    <string name="completed">Completed</string>
+    <string name="all_task">All Task</string>
+</resources>
