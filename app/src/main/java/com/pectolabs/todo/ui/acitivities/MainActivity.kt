@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Task Added", Toast.LENGTH_SHORT).show()
         } else if (result.resultCode == Activity.RESULT_CANCELED) {
 //            Snackbar.make(binding.root, "Add task cancelled", Snackbar.LENGTH_SHORT).show()
-            Toast.makeText(this, "Add task cancelled", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, "Add task cancelled", Toast.LENGTH_SHORT).show()
         }
 
     }

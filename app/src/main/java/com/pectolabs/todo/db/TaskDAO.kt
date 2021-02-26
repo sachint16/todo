@@ -1,10 +1,7 @@
 package com.pectolabs.todo.db
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface TaskDAO {
@@ -22,6 +19,9 @@ interface TaskDAO {
 
     @Delete
     suspend fun deleteTask(task: Task)
+
+    @Update
+    suspend fun updateTask(task:Task)
 
 
 }

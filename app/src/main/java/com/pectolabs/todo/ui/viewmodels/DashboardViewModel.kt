@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
-class DashboardViewModel @Inject constructor(val mainRepository: MainRepository) :
+class DashboardViewModel @Inject constructor(private val mainRepository: MainRepository) :
     ViewModel() {
 
     private val allTasks = mainRepository.getAllTasks()
@@ -50,7 +50,7 @@ class DashboardViewModel @Inject constructor(val mainRepository: MainRepository)
         }
     }
 
-    fun filterTasks(dashboardFilterType: DashboardFilterType) = when (dashboardFilterType) {
+    fun filterTasks(filterType: DashboardFilterType) = when (filterType) {
         DashboardFilterType.PENDING -> allPendingTasks.value?.let {
             tasks.value = it
         }
@@ -64,11 +64,17 @@ class DashboardViewModel @Inject constructor(val mainRepository: MainRepository)
         }
 
     }.also {
-        this.dashboardFilterType = dashboardFilterType
+        this.dashboardFilterType = filterType
+
+        Timber.d("FILTER_TYPE:${this.dashboardFilterType}")
     }
 
     fun deleteTask(task: Task) = viewModelScope.launch {
-        val isAdded =  mainRepository.deleteTask(task)
-        Timber.d("IS_DELETED: $isAdded")
+        mainRepository.deleteTask(task)
+    }
+
+    fun updateTask(task: Task) = viewModelScope.launch {
+        val isUpdated = mainRepository.updateTask(task)
+        Timber.d("IS_UPDATED: $isUpdated")
     }
 }

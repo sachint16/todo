@@ -1,6 +1,7 @@
 package com.pectolabs.todo.adapters
 
 import android.graphics.Paint
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -14,7 +15,12 @@ import com.pectolabs.todo.interfaces.TaskAdapterListener
 class TaskAdapter(private val taskAdapterListener: TaskAdapterListener) :
     RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
-    private val tasks = ArrayList<Task>()
+    companion object {
+        const val TYPE_PENDING = 0
+        const val TYPE_COMPLETED = 1
+    }
+
+    val tasks = ArrayList<Task>()
 
     inner class TaskViewHolder(val binding: ItemTaskBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -37,7 +43,7 @@ class TaskAdapter(private val taskAdapterListener: TaskAdapterListener) :
         }
 
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldTaskList[oldItemPosition].id === newTaskList[newItemPosition].id
+            return oldTaskList.hashCode() == newTaskList.hashCode()
         }
 
     }
@@ -50,9 +56,34 @@ class TaskAdapter(private val taskAdapterListener: TaskAdapterListener) :
         diffResult.dispatchUpdatesTo(this)
     }
 
+    fun removeAt(position: Int) {
+        taskAdapterListener.onRemoveItem(tasks[position], position)
+        tasks.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
+    fun updateAt(position: Int) {
+        taskAdapterListener.onUpdateItem(tasks[position], position)
+        tasks.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
+    fun undoView(position: Int) {
+        notifyItemInserted(position)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val binding = ItemTaskBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return TaskViewHolder(binding)
+    }
+
+    override fun getItemViewType(position: Int): Int {
+
+        return if(tasks[position].isCompleted){
+            TYPE_COMPLETED
+        }else{
+            TYPE_PENDING
+        }
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {

@@ -16,4 +16,9 @@ class MainViewModel @Inject constructor(private val mainRepository: MainReposito
        val isAdded =  mainRepository.insertTask(task)
         Timber.d("IS_ADDED: $isAdded")
     }
+
+    fun updateTask(task: Task) = viewModelScope.launch {
+        val isUpdated = mainRepository.updateTask(task)
+        Timber.d("IS_UPDATED: $isUpdated")
+    }
 }

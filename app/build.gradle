@@ -5,6 +5,7 @@ plugins {
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
     id 'dagger.hilt.android.plugin'
+    id 'org.jetbrains.kotlin.android.extensions'
 }
 
 android {
@@ -37,6 +38,9 @@ android {
 
     buildFeatures {
         viewBinding = true
+    }
+    androidExtensions {
+        experimental = true
     }
 }
 
@@ -89,4 +93,7 @@ dependencies {
     //Activity-Result API
     implementation 'androidx.activity:activity-ktx:1.3.0-alpha02'
     implementation 'androidx.fragment:fragment-ktx:1.3.0'
+
+    //Swipeable RecyclerView
+    implementation 'com.ernestoyaquello.dragdropswiperecyclerview:drag-drop-swipe-recyclerview:1.0.2'
 }

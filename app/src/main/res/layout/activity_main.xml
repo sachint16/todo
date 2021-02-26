@@ -8,6 +8,9 @@
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
+        app:fabCradleMargin="@dimen/_4sdp"
+        app:fabCradleVerticalOffset="@dimen/_2sdp"
+        app:fabCradleRoundedCornerRadius="@dimen/_20sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
@@ -37,6 +40,7 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_marginBottom="@dimen/_64sdp"
+        app:layout_anchorGravity="bottom"
         android:layout_height="match_parent"
         app:defaultNavHost="true"
         app:navGraph="@navigation/nav_graph" />
