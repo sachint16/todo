@@ -118,7 +118,7 @@
         android:background="@drawable/bg_rounder_light_grey"
         android:orientation="horizontal"
         android:padding="@dimen/_8sdp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="@+id/tvWhen"
         app:layout_constraintTop_toBottomOf="@id/tvWhen">
 

@@ -21,7 +21,7 @@ object AppModule {
     @Singleton
     @Provides
     fun provideTodoDatabase(@ApplicationContext app: Context) =
-        Room.databaseBuilder(app, TodoDatabase::class.java, TODO_DATABASE_NAME).build()
+        Room.databaseBuilder(app, TodoDatabase::class.java, TODO_DATABASE_NAME).fallbackToDestructiveMigration().build()
 
     @Singleton
     @Provides

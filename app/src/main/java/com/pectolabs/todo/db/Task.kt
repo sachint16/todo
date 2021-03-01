@@ -15,6 +15,7 @@ data class Task(
         @ColumnInfo(name = "title") val title: String,
         @ColumnInfo(name = "description") val description: String,
         @ColumnInfo(name = "scheduled_at") val scheduledAt: Date,
+        @ColumnInfo(name = "completed_at") var completedAt: Date?=null,
         @ColumnInfo(name = "is_completed") var isCompleted: Boolean
 
 ):Parcelable

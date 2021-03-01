@@ -91,13 +91,14 @@ class TaskAdapter(private val taskAdapterListener: TaskAdapterListener) :
         val task = tasks[position]
         val tvTitle = holder.binding.tvTitle
         val tvDescription = holder.binding.tvDescription
+        val tvCompletedAt = holder.binding.tvCompletedAt
 
         tvTitle.text = task.title
         tvDescription.text = task.description
 
 
         if (task.isCompleted) {
-
+            tvCompletedAt.text = "Completed : ${DateUtils.fromDateObjectToString(task.completedAt!!)}"
             tvTitle.apply {
                 paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
                 setTextColor(this.resources.getColor(R.color.wild_watermelon))
@@ -108,6 +109,7 @@ class TaskAdapter(private val taskAdapterListener: TaskAdapterListener) :
 
             }
         } else {
+            tvCompletedAt.text = "Due : ${DateUtils.fromDateObjectToString(task.scheduledAt)}"
             tvTitle.apply {
                 paintFlags = 0
                 setTextColor(this.resources.getColor(R.color.white))

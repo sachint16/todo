@@ -32,6 +32,7 @@ import com.pectolabs.todo.views.MarginItemDecoration
 import com.pectolabs.todo.views.SwipeToDeleteCallback
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import java.util.*
 import javax.inject.Inject
 
 // TODO: Rename parameter arguments, choose names that match
@@ -239,6 +240,7 @@ class DashboardFragment : Fragment(), View.OnClickListener, TaskAdapterListener 
                 super.onDismissed(transientBottomBar, event)
                 if (isTaskToBeUpdated) {
                     task.isCompleted = true
+                    task.completedAt = Calendar.getInstance().time
                     viewModel.updateTask(task)
                 }
             }
