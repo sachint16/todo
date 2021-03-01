@@ -11,6 +11,7 @@ import com.pectolabs.todo.R
 import com.pectolabs.todo.databinding.ItemTaskBinding
 import com.pectolabs.todo.db.Task
 import com.pectolabs.todo.interfaces.TaskAdapterListener
+import com.pectolabs.todo.utils.DateUtils
 
 class TaskAdapter(private val taskAdapterListener: TaskAdapterListener) :
     RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
@@ -90,8 +91,10 @@ class TaskAdapter(private val taskAdapterListener: TaskAdapterListener) :
         val task = tasks[position]
         val tvTitle = holder.binding.tvTitle
         val tvDescription = holder.binding.tvDescription
+
         tvTitle.text = task.title
         tvDescription.text = task.description
+
 
         if (task.isCompleted) {
 

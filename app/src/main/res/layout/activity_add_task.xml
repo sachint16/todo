@@ -4,7 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clipChildren="false"
     tools:context=".ui.acitivities.AddTaskActivity">
+
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="@+id/tvAddTask"
+        app:layout_constraintEnd_toStartOf="@+id/guideline5"
+        app:layout_constraintTop_toTopOf="@+id/tvAddTask"
+        app:srcCompat="@drawable/ic_close" />
 
     <!-- TODO: Update blank fragment layout -->
     <com.google.android.material.textview.MaterialTextView
@@ -110,38 +122,41 @@
         app:layout_constraintStart_toStartOf="@+id/tvWhen"
         app:layout_constraintTop_toBottomOf="@id/tvWhen">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/materialTextView2"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnToday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
             android:padding="@dimen/_8sdp"
             android:text="@string/today"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-            android:textColor="@color/wild_watermelon"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/materialTextView"
+            app:layout_constraintEnd_toStartOf="@+id/btnTomorrow"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/materialTextView"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnTomorrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
             android:padding="@dimen/_8sdp"
             android:text="@string/tomorrow"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/materialTextView3"
+            app:layout_constraintEnd_toStartOf="@+id/btnSelectDate"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/materialTextView2"
+            app:layout_constraintStart_toEndOf="@+id/btnToday"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/materialTextView3"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSelectDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
             android:padding="@dimen/_8sdp"
             android:text="@string/select_date"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
@@ -149,7 +164,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/materialTextView"
+            app:layout_constraintStart_toEndOf="@+id/btnTomorrow"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

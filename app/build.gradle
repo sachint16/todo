@@ -96,4 +96,10 @@ dependencies {
 
     //Swipeable RecyclerView
     implementation 'com.ernestoyaquello.dragdropswiperecyclerview:drag-drop-swipe-recyclerview:1.0.2'
+
+    //Cred Synth (Neumorphic)
+    implementation 'club.cred.android:synth:1.0.0'
+
+    //DateTime Picker
+    implementation 'com.wdullaer:materialdatetimepicker:4.2.3'
 }
