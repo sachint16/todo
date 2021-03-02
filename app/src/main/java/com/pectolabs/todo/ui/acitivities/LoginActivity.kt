@@ -5,8 +5,10 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.Window
 import android.view.WindowManager
+import android.widget.ProgressBar
 import androidx.core.content.res.ResourcesCompat
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -26,6 +28,8 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var googleSignInClient:GoogleSignInClient
     private lateinit var auth: FirebaseAuth
+
+    private lateinit var progressBar:ProgressBar
 
     companion object {
         private const val TAG = "LoginActivity"
@@ -57,8 +61,9 @@ class LoginActivity : AppCompatActivity() {
                 .build()
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
-
         auth = Firebase.auth
+
+        progressBar = binding.spinKitLoadingView
 
         binding.flSignInBtn.setOnClickListener {
             signIn()
@@ -75,6 +80,7 @@ class LoginActivity : AppCompatActivity() {
     private fun signIn() {
         val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -98,6 +104,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun firebaseAuthWithGoogle(idToken: String) {
 //        showProgressBar()
+        showProgressBar()
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential)
                 .addOnCompleteListener(this) { task ->
@@ -118,15 +125,25 @@ class LoginActivity : AppCompatActivity() {
 
                     // [START_EXCLUDE]
 //                    hideProgressBar()
+                    hideProgressBar()
                     // [END_EXCLUDE]
                 }
     }
 
     private fun updateUI(user: FirebaseUser?) {
+        hideProgressBar()
 //        hideProgressBar()
         if (user != null) {
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
+    }
+
+    private fun showProgressBar(){
+        progressBar.visibility = View.VISIBLE
+    }
+
+    private fun hideProgressBar(){
+        progressBar.visibility = View.GONE
     }
 }

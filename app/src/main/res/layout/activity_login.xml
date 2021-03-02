@@ -85,4 +85,16 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.9" />
+
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:id="@+id/spinKitLoadingView"
+        android:layout_width="wrap_content"
+        app:SpinKit_Color="@color/wild_watermelon"
+        android:visibility="gone"
+        style="@style/SpinKitView.DoubleBounce"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/flSignInBtn"
+        app:layout_constraintEnd_toEndOf="@+id/flSignInBtn"
+        app:layout_constraintStart_toEndOf="@+id/tvSignIn"
+        app:layout_constraintTop_toTopOf="@+id/flSignInBtn" />
 </androidx.constraintlayout.widget.ConstraintLayout>

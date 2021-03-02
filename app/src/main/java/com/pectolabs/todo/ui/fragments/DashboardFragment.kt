@@ -14,6 +14,7 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat.animate
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -87,7 +88,29 @@ class DashboardFragment : Fragment(), View.OnClickListener, TaskAdapterListener 
         binding.tvAllTask.setOnClickListener(this)
 
         viewModel.tasks.observe(viewLifecycleOwner, {
-            taskAdapter.submitList(it)
+            if(it.isEmpty()){
+                binding.rvTask.apply {
+                    animate().alpha(0.0f)
+                    visibility = View.GONE
+                }
+
+                binding.emptyView.root.apply {
+                    animate().alpha(1.0f)
+                    visibility = View.VISIBLE
+                }
+            }else{
+                binding.emptyView.root.apply {
+                    animate().alpha(0.0f)
+                    visibility = View.GONE
+                }
+
+                binding.rvTask.apply {
+                    animate().alpha(1.0f)
+                    visibility = View.VISIBLE
+                }
+                taskAdapter.submitList(it)
+            }
+
         })
 
     }
@@ -179,12 +202,14 @@ class DashboardFragment : Fragment(), View.OnClickListener, TaskAdapterListener 
             }
 
     override fun onTaskClickListener(task: Task) {
-        val editTaskIntent = Intent(context, AddTaskActivity::class.java)
-        val bundle = Bundle()
-        bundle.putParcelable("task", task)
-        bundle.putParcelable("position", task)
-        editTaskIntent.putExtra("bundle", bundle)
-        editTaskActivityResult.launch(editTaskIntent)
+        if(!task.isCompleted){
+            val editTaskIntent = Intent(context, AddTaskActivity::class.java)
+            val bundle = Bundle()
+            bundle.putParcelable("task", task)
+            bundle.putParcelable("position", task)
+            editTaskIntent.putExtra("bundle", bundle)
+            editTaskActivityResult.launch(editTaskIntent)
+        }
     }
 
     override fun onRemoveItem(task: Task, position: Int) {
