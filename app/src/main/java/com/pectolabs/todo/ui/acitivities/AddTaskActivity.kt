@@ -32,7 +32,6 @@ class AddTaskActivity : AppCompatActivity(), View.OnClickListener,
 
     private var taskDate: Date? = null
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddTaskBinding.inflate(layoutInflater)
@@ -66,7 +65,6 @@ class AddTaskActivity : AppCompatActivity(), View.OnClickListener,
 
             } else if (description.isEmpty()) {
                 binding.tilDescription.error = "Please enter description"
-
             } else if (taskDate == null) {
                 showToast("Please select date")
             } else {
@@ -92,6 +90,8 @@ class AddTaskActivity : AppCompatActivity(), View.OnClickListener,
                 }
             }
         }
+
+        
 
         binding.btnToday.setOnClickListener(this)
         binding.btnTomorrow.setOnClickListener(this)
