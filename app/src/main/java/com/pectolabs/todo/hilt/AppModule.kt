@@ -5,7 +5,6 @@ import androidx.room.Room
 import com.pectolabs.todo.db.TaskDAO
 import com.pectolabs.todo.db.TodoDatabase
 import com.pectolabs.todo.repositories.MainRepository
-import com.pectolabs.todo.ui.viewmodels.DashboardViewModel
 import com.pectolabs.todo.ui.viewmodels.MainViewModel
 import com.pectolabs.todo.utils.Constants.TODO_DATABASE_NAME
 import dagger.Module
@@ -35,8 +34,4 @@ object AppModule {
     @Provides
     fun provideMainViewModel(mainRepository: MainRepository) = MainViewModel(mainRepository)
 
-    @Singleton
-    @Provides
-    fun provideDashboardViewModel(mainRepository: MainRepository) =
-        DashboardViewModel(mainRepository)
 }

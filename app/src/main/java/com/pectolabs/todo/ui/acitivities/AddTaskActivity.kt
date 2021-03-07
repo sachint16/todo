@@ -1,7 +1,11 @@
 package com.pectolabs.todo.ui.acitivities
 
 import android.app.Activity
+import android.content.ContentValues
+import android.net.Uri
 import android.os.Bundle
+import android.provider.CalendarContract
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
@@ -21,7 +25,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class AddTaskActivity : AppCompatActivity(), View.OnClickListener,
-    DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+        DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     @Inject
     lateinit var mainViewModel: MainViewModel
@@ -46,6 +50,26 @@ class AddTaskActivity : AppCompatActivity(), View.OnClickListener,
             binding.tilTitle.editText?.setText(it.title)
             binding.tilDescription.editText?.setText(it.description)
             binding.btnAddTask.text = "Update Task"
+            val scheduledAt = DateUtils.fromDateObjectToString(it.scheduledAt)
+            val today = DateUtils.fromDateObjectToString(Calendar.getInstance().time)
+            val tomorrowDate = Calendar.getInstance()
+            tomorrowDate.add(Calendar.DATE, 1)
+            val tomorrow = DateUtils.fromDateObjectToString(tomorrowDate.time)
+
+
+            if (scheduledAt == today){
+                binding.btnToday.setTextColor(resources.getColor(R.color.wild_watermelon))
+                taskDate = Calendar.getInstance().time
+                binding.btnToday.text = "Today\n${DateUtils.fromDateObjectToString(taskDate!!)}"
+            }else if(scheduledAt == tomorrow){
+                binding.btnTomorrow.setTextColor(resources.getColor(R.color.wild_watermelon))
+                taskDate = tomorrowDate.time
+                binding.btnTomorrow.text = "Tomorrow\n${DateUtils.fromDateObjectToString(taskDate!!)}"
+            }else{
+                binding.btnSelectDate.setTextColor(resources.getColor(R.color.wild_watermelon))
+                taskDate = it.scheduledAt
+                binding.btnSelectDate.text = DateUtils.fromDateObjectToString(taskDate!!)
+            }
         }
 
         binding.tvAddTask.typeface = ResourcesCompat.getFont(this, R.font.avenir_ltstd_book)
@@ -69,10 +93,10 @@ class AddTaskActivity : AppCompatActivity(), View.OnClickListener,
                 showToast("Please select date")
             } else {
                 val taskInfo = Task(
-                    title = title,
-                    description = description,
-                    scheduledAt = taskDate!!,
-                    isCompleted = false
+                        title = title,
+                        description = description,
+                        scheduledAt = taskDate!!,
+                        isCompleted = false
                 )
 
                 try {
@@ -90,8 +114,6 @@ class AddTaskActivity : AppCompatActivity(), View.OnClickListener,
                 }
             }
         }
-
-        
 
         binding.btnToday.setOnClickListener(this)
         binding.btnTomorrow.setOnClickListener(this)
@@ -122,12 +144,14 @@ class AddTaskActivity : AppCompatActivity(), View.OnClickListener,
             binding.btnSelectDate -> {
                 val now = Calendar.getInstance()
                 val datePickerDialog = DatePickerDialog.newInstance(
-                    this,
-                    now.get(Calendar.YEAR),
-                    now.get(Calendar.MONTH),
-                    now.get(Calendar.DAY_OF_MONTH)
+                        this,
+                        now.get(Calendar.YEAR),
+                        now.get(Calendar.MONTH),
+                        now.get(Calendar.DAY_OF_MONTH)
                 )
+
                 datePickerDialog.minDate = Calendar.getInstance()
+
                 datePickerDialog.show(supportFragmentManager, "Select Date")
             }
         }
@@ -139,10 +163,19 @@ class AddTaskActivity : AppCompatActivity(), View.OnClickListener,
         val scheduledAt = Calendar.getInstance()
         scheduledAt.set(year, monthOfYear, dayOfMonth)
         taskDate = scheduledAt.time
-        binding.btnSelectDate.text = "${DateUtils.fromDateObjectToString(taskDate!!)}"
+        binding.btnSelectDate.text = DateUtils.fromDateObjectToString(taskDate!!)
+
+//        val timePickerDialog = TimePickerDialog.newInstance(this,false)
+//        timePickerDialog.show(supportFragmentManager,"Select Time")
     }
 
     override fun onTimeSet(view: TimePickerDialog?, hourOfDay: Int, minute: Int, second: Int) {
-        TODO("Not yet implemented")
+        val time = Calendar.getInstance()
+        time.time = taskDate
+        time.set(Calendar.HOUR, hourOfDay)
+        time.set(Calendar.MINUTE, minute)
+        time.set(Calendar.SECOND, second)
+
+        taskDate = time.time
     }
 }

@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationView.menu.getItem(2).isEnabled = false
 
         binding.bottomNavigationView.setupWithNavController(findNavController(R.id.fragment))
+        binding.bottomNavigationView.setOnNavigationItemReselectedListener { /*NO-OP*/ }
 
 
 

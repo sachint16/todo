@@ -37,6 +37,8 @@
 
     <fragment
         android:id="@+id/fragment"
+        android:fragmentEnterTransition="@anim/nav_default_enter_anim"
+        android:fragmentExitTransition="@animator/nav_default_exit_anim"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_marginBottom="@dimen/_64sdp"

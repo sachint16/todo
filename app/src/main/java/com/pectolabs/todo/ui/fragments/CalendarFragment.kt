@@ -1,6 +1,7 @@
 package com.pectolabs.todo.ui.fragments
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -8,7 +9,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.content.res.AppCompatResources
@@ -21,16 +21,18 @@ import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.pectolabs.todo.R
 import com.pectolabs.todo.adapters.TaskAdapter
-import com.pectolabs.todo.databinding.FragmentDashboardBinding
+import com.pectolabs.todo.databinding.FragmentCalendarBinding
 import com.pectolabs.todo.db.Task
 import com.pectolabs.todo.interfaces.TaskAdapterListener
 import com.pectolabs.todo.ui.acitivities.AddTaskActivity
 import com.pectolabs.todo.ui.viewmodels.MainViewModel
 import com.pectolabs.todo.utils.DashboardFilterType
+import com.pectolabs.todo.utils.DateUtils
 import com.pectolabs.todo.utils.showToast
 import com.pectolabs.todo.views.MarginItemDecoration
 import com.pectolabs.todo.views.SwipeToDeleteCallback
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
@@ -41,11 +43,13 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [DashboardFragment.newInstance] factory method to
+ * Use the [CalenderFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+
+
 @AndroidEntryPoint
-class DashboardFragment : Fragment(), View.OnClickListener, TaskAdapterListener {
+class CalenderFragment : Fragment(), TaskAdapterListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -53,10 +57,8 @@ class DashboardFragment : Fragment(), View.OnClickListener, TaskAdapterListener 
     @Inject
     lateinit var viewModel: MainViewModel
 
-    private lateinit var binding: FragmentDashboardBinding
+    private lateinit var binding: FragmentCalendarBinding
     private lateinit var taskAdapter: TaskAdapter
-
-    private var dashboardFilterType = DashboardFilterType.PENDING
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,23 +71,25 @@ class DashboardFragment : Fragment(), View.OnClickListener, TaskAdapterListener 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentDashboardBinding.inflate(inflater, container, false)
+        binding = FragmentCalendarBinding.inflate(inflater, container, false)
         return binding.root
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setupRecyclerView()
 
-        binding.tvPending.setOnClickListener(this)
-        binding.tvCompleted.setOnClickListener(this)
-        binding.tvAllTask.setOnClickListener(this)
+        binding.calenderView.minDate = Calendar.getInstance().timeInMillis
 
-        viewModel.tasks.observe(viewLifecycleOwner, {
+        viewModel.calendarTasks.observe(viewLifecycleOwner, {
+            val calender = Calendar.getInstance()
+            calender.timeInMillis = binding.calenderView.date
+
+            binding.tvTaskCountWithDate.text = "${DateUtils.fromDateObjectToString(calender.time)} - ${it.size} Tasks"
+
             if (it.isEmpty()) {
                 binding.rvTask.apply {
                     animate().alpha(0.0f)
@@ -111,32 +115,17 @@ class DashboardFragment : Fragment(), View.OnClickListener, TaskAdapterListener 
 
         })
 
-        viewModel.dashboardFilterType.observe(viewLifecycleOwner, {
-            binding.tvPending.setTextColor(resources.getColor(R.color.viloent_voilet))
-            binding.tvCompleted.setTextColor(resources.getColor(R.color.viloent_voilet))
-            binding.tvAllTask.setTextColor(resources.getColor(R.color.viloent_voilet))
 
-            when (it) {
-                DashboardFilterType.PENDING -> {
-                    binding.tvPending.setTextColor(resources.getColor(R.color.wild_watermelon))
-                }
-
-                DashboardFilterType.COMPLETED -> {
-                    binding.tvCompleted.setTextColor(resources.getColor(R.color.wild_watermelon))
-                }
-
-                DashboardFilterType.ALL_TASK -> {
-                    binding.tvAllTask.setTextColor(resources.getColor(R.color.wild_watermelon))
-                }
-            }
-        })
-
+        binding.calenderView.setOnDateChangeListener { view, year, month, dayOfMonth ->
+            val calendar = Calendar.getInstance()
+            calendar.set(year, month, dayOfMonth)
+            viewModel.filterTasksWithDate(calendar.time)
+        }
     }
-
 
     private fun setupRecyclerView() {
         binding.rvTask.apply {
-            taskAdapter = TaskAdapter(this@DashboardFragment)
+            taskAdapter = TaskAdapter(this@CalenderFragment)
             layoutManager = LinearLayoutManager(requireContext())
             addItemDecoration(MarginItemDecoration(16))
             adapter = taskAdapter
@@ -182,26 +171,17 @@ class DashboardFragment : Fragment(), View.OnClickListener, TaskAdapterListener 
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment DashboardFragment.
+         * @return A new instance of fragment CalenderFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-                DashboardFragment().apply {
+                CalenderFragment().apply {
                     arguments = Bundle().apply {
                         putString(ARG_PARAM1, param1)
                         putString(ARG_PARAM2, param2)
                     }
                 }
-    }
-
-    override fun onClick(view: View?) {
-        when (view) {
-
-            binding.tvPending -> viewModel.filterTasks(DashboardFilterType.PENDING)
-            binding.tvCompleted -> viewModel.filterTasks(DashboardFilterType.COMPLETED)
-            binding.tvAllTask -> viewModel.filterTasks(DashboardFilterType.ALL_TASK)
-        }
     }
 
     private val editTaskActivityResult =
@@ -284,6 +264,4 @@ class DashboardFragment : Fragment(), View.OnClickListener, TaskAdapterListener 
         })
         snackbar.show()
     }
-
-
 }
