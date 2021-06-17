@@ -5,7 +5,7 @@ A fully Material ToDo app with minimal features, just enough to be useful.
 
 
 # Screenshots:
-<img src="/screenshots/Screenshot_20210617-164007.jpg" height="400px"/><img src="/screenshots/Screenshot_20210617-164503.jpg" height="400px"/>
+<img src="/screenshots/Screenshot_20210617-164007.jpg" height="400px"/>    <img src="/screenshots/Screenshot_20210617-164503.jpg" height="400px"/>
 <!-- <img src="/screenshots/add_todo_light.png" height="400px"/>
 <img src="/screenshots/add_todo_dark.png" height="400px"/>
 <img src="screenshots/screenshot_reminder_date.png" height="400px"/>
