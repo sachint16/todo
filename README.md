@@ -1,6 +1,6 @@
 # ToDo App
 
-<img src="/screenshots/app_logo.png" height="200px"/> <br>
+<img src="/screenshots/app_logo.png" height="200px"/> <br><br>
 A fully Material ToDo app with minimal features, just enough to be useful.
 
 
