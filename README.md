@@ -6,8 +6,8 @@ A ToDo app with minimal features, just enough to be useful.
 
 # Screenshots:
 
-<img src="/screenshots/Screenshot_20210617-164007_oneplus-oneplus8pro-portrait.png" height="400px"/><img src="/screenshots/Screenshot_20210617-164503_oneplus-oneplus8pro-portrait.png" height="400px"/>
-<img src="/screenshots/Screenshot_20210617-164453_oneplus-oneplus8pro-portrait.png" height="400px"/><img src="/screenshots/Screenshot_20210617-164148_oneplus-oneplus8pro-portrait.png" height="400px"/>
+<img src="/screenshots/Screenshot_20210617-164007_oneplus-oneplus8pro-portrait.png" height="500px"/><img src="/screenshots/Screenshot_20210617-164503_oneplus-oneplus8pro-portrait.png" height="500px"/>
+<img src="/screenshots/Screenshot_20210617-164453_oneplus-oneplus8pro-portrait.png" height="500px"/><img src="/screenshots/Screenshot_20210617-164148_oneplus-oneplus8pro-portrait.png" height="500px"/>
 
 ## Download
 <!-- <a href="https://play.google.com/store/apps/details?id=com.avjindersinghsekhon.minimaltodo&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-AC-global-none-all-co-pr-py-PartBadges-Oct1515-1"> -->
