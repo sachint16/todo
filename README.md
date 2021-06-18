@@ -5,8 +5,7 @@ A fully Material ToDo app with minimal features, just enough to be useful.
 
 
 # Screenshots:
-<img src="/screenshots/Screenshot_20210617-164007_oneplus-oneplus8pro-portrait.png" height="400px"/>
-<img src="/screenshots/Screenshot_20210617-164503_oneplus-oneplus8pro-portrait.png" height="400px"/>
+<img src="/screenshots/Screenshot_20210617-164007_oneplus-oneplus8pro-portrait.png" height="400px"/><img src="/screenshots/Screenshot_20210617-164503_oneplus-oneplus8pro-portrait.png" height="400px"/>
 <img src="/screenshots/Screenshot_20210617-164453_oneplus-oneplus8pro-portrait.png" height="400px"/>
 <img src="/screenshots/Screenshot_20210617-164148_oneplus-oneplus8pro-portrait.png" height="400px"/>
 
